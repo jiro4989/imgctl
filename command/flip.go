@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"image"
-	"image/png"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,6 +12,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/disintegration/gift"
+	"github.com/jiro4989/tkimgutil/imageutil"
 )
 
 func CmdFlip(c *cli.Context) {
@@ -34,13 +34,7 @@ func CmdFlip(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			reader, err := os.Open(inFile)
-			defer reader.Close()
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			src, err := png.Decode(reader)
+			src, err := imageutil.ReadImage(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -49,13 +43,7 @@ func CmdFlip(c *cli.Context) {
 			dist := image.NewRGBA(g.Bounds(src.Bounds()))
 			g.Draw(dist, src)
 
-			writer, err := os.Create(outFile)
-			defer writer.Close()
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			if err := png.Encode(writer, dist); err != nil {
+			if err := imageutil.WriteImage(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 

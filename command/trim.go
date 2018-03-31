@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"image"
 	"image/draw"
-	"image/png"
 	"log"
 	"os"
 	"path/filepath"
@@ -13,6 +12,7 @@ import (
 	"sync"
 
 	"github.com/codegangsta/cli"
+	"github.com/jiro4989/tkimgutil/imageutil"
 	"github.com/oliamb/cutter"
 )
 
@@ -43,18 +43,12 @@ func CmdTrim(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			reader, err := os.Open(inFile)
-			defer reader.Close()
+			src, err := imageutil.ReadImage(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			img, err := png.Decode(reader)
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			cImg, err := cutter.Crop(img, cutter.Config{
+			cImg, err := cutter.Crop(src, cutter.Config{
 				Width:  w,
 				Height: h,
 				Anchor: image.Pt(x, y),
@@ -64,16 +58,10 @@ func CmdTrim(c *cli.Context) {
 				log.Fatal(err)
 			}
 
-			oImg := image.NewRGBA(image.Rectangle{pt1, pt2})
-			draw.Draw(oImg, oImg.Bounds(), cImg, pt1, draw.Over)
+			dist := image.NewRGBA(image.Rectangle{pt1, pt2})
+			draw.Draw(dist, dist.Bounds(), cImg, pt1, draw.Over)
 
-			writer, err := os.Create(outFile)
-			defer writer.Close()
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			if err := png.Encode(writer, oImg); err != nil {
+			if err := imageutil.WriteImage(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 

@@ -3,7 +3,6 @@ package command
 import (
 	"bufio"
 	"fmt"
-	"image/png"
 	"log"
 	"os"
 	"path/filepath"
@@ -12,6 +11,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/disintegration/imaging"
+	"github.com/jiro4989/tkimgutil/imageutil"
 )
 
 func init() {
@@ -39,27 +39,15 @@ func CmdScale(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			fp, err := os.Open(inFile)
-			defer fp.Close()
+			src, err := imageutil.ReadImage(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
 
-			img, err := png.Decode(fp)
-			if err != nil {
-				log.Fatal(err)
-			}
+			w := src.Bounds().Size().X * scaleSize / 100
 
-			w := img.Bounds().Size().X * scaleSize / 100
-
-			nImg := imaging.Resize(img, w, 0, imaging.Lanczos)
-			nfp, err := os.Create(outFile)
-			defer nfp.Close()
-			if err != nil {
-				log.Fatal(err)
-			}
-
-			if err := png.Encode(nfp, nImg); err != nil {
+			dist := imaging.Resize(src, w, 0, imaging.Lanczos)
+			if err := imageutil.WriteImage(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 
