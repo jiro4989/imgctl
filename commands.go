@@ -60,7 +60,35 @@ var Commands = []cli.Command{
 		Name:   "paste",
 		Usage:  "Scaling images",
 		Action: command.CmdPaste,
-		Flags:  []cli.Flag{},
+		Flags: []cli.Flag{
+			cli.IntFlag{
+				Name:  "row,r",
+				Value: 2,
+				Usage: "row count",
+			},
+			cli.IntFlag{
+				Name:  "column,c",
+				Value: 4,
+				Usage: "column count",
+			},
+			cli.IntFlag{Name: "width", Value: 144, Usage: "width"},
+			cli.IntFlag{Name: "height", Value: 144, Usage: "height"},
+			cli.StringFlag{
+				Name:  "out-filename-prefix,o",
+				Value: "actor",
+				Usage: "out filename prefix",
+			},
+			cli.StringFlag{
+				Name:  "padding,p",
+				Value: "%03d",
+				Usage: "number padding format",
+			},
+			cli.StringFlag{
+				Name:  "dist,d",
+				Value: "dist/paste",
+				Usage: "output dist",
+			},
+		},
 	},
 }
 
