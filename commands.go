@@ -91,12 +91,6 @@ var Commands = []cli.Command{
 		},
 	},
 	{
-		Name:   "config",
-		Usage:  "Open config window",
-		Action: command.CmdConfig,
-		Flags:  []cli.Flag{},
-	},
-	{
 		Name:   "generate",
 		Usage:  "Generate images",
 		Action: command.CmdGenerate,
