@@ -90,6 +90,24 @@ var Commands = []cli.Command{
 			},
 		},
 	},
+	{
+		Name:   "config",
+		Usage:  "Open config window",
+		Action: command.CmdConfig,
+		Flags:  []cli.Flag{},
+	},
+	{
+		Name:   "generate",
+		Usage:  "Generate images",
+		Action: command.CmdGenerate,
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:  "dist,d",
+				Value: "dist/generate",
+				Usage: "output dist",
+			},
+		},
+	},
 }
 
 func CommandNotFound(c *cli.Context, command string) {
