@@ -26,6 +26,11 @@ var Commands = []cli.Command{
 				Value: "dist/scale",
 				Usage: "output dist",
 			},
+			cli.StringFlag{
+				Name:  "config",
+				Value: "",
+				Usage: "config.toml path",
+			},
 		},
 	},
 	{
@@ -42,6 +47,11 @@ var Commands = []cli.Command{
 				Value: "dist/trim",
 				Usage: "output dist",
 			},
+			cli.StringFlag{
+				Name:  "config",
+				Value: "",
+				Usage: "config.toml path",
+			},
 		},
 	},
 	{
@@ -53,6 +63,11 @@ var Commands = []cli.Command{
 				Name:  "dist,d",
 				Value: "dist/flip",
 				Usage: "output dist",
+			},
+			cli.StringFlag{
+				Name:  "config",
+				Value: "",
+				Usage: "config.toml path",
 			},
 		},
 	},
@@ -88,6 +103,11 @@ var Commands = []cli.Command{
 				Value: "dist/paste",
 				Usage: "output dist",
 			},
+			cli.StringFlag{
+				Name:  "config",
+				Value: "",
+				Usage: "config.toml path",
+			},
 		},
 	},
 	{
@@ -96,9 +116,9 @@ var Commands = []cli.Command{
 		Action: command.CmdGenerate,
 		Flags: []cli.Flag{
 			cli.StringFlag{
-				Name:  "dist,d",
-				Value: "dist/generate",
-				Usage: "output dist",
+				Name:  "config",
+				Value: "",
+				Usage: "config.toml path",
 			},
 		},
 	},

@@ -1,64 +1,187 @@
-[image]
+[[image]]
+# 出力先ディレクトリ
+out_dir = './dist/actor019_1'
+
+[image.scale]
+# 画像の拡大縮小率(百分率)
+size = 50
+
+[image.trim]
+# 画像のトリミング位置と幅
+#
+# 例
+# ----------
+# RPGツクールVXACE
+# width  = 96
+# height = 96
+#
+# RPGツクールMV
+# width  = 144
+# height = 144
+x      = 100
+y      = 290
+width  = 144
+height = 144
+
+[image.paste]
+row    = 2
+column = 4
+
+[image.generate]
 # 保存するファイル名の書式
-save_filename_format = "actor%03d.png"
+save_filename_format = 'actor%03d.png'
 
 # 画像の組み合わせ
 # 一番上のファイルに順に重ねるように画像を貼り付けていく。
 pattern = [
 # 通常
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/normal.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/normal.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/normal.png'
 	],
 # 会話
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/normal.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/smile.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/smile.png'
 	],
 # 驚き
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/surprise.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/whisper.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/surprise.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/whisper.png'
 	],
 # 無表情
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/normal.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/spin.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/spin.png'
 	],
 # 喜
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/smile.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/smile.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/smile.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/smile.png'
 	],
 # 怒
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/normal.png",
-		"img/actor019/diff/eyebrows/angry.png",
-		"img/actor019/diff/mouse/shout.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/angry.png',
+		'img/actor019/diff/mouse/shout.png'
 	],
 # 哀
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/normal.png",
-		"img/actor019/diff/eyebrows/sad.png",
-		"img/actor019/diff/mouse/spin.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/sad.png',
+		'img/actor019/diff/mouse/spin.png'
 	],
 # 楽
 	[
-		"img/actor019/diff/body/base.png",
-		"img/actor019/diff/eye/smile.png",
-		"img/actor019/diff/eyebrows/normal.png",
-		"img/actor019/diff/mouse/normal.png"
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/smile.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/normal.png'
+	]
+]
+
+[[image]]
+# 出力先ディレクトリ
+out_dir = './dist/actor019_2'
+
+[image.scale]
+# 画像の拡大縮小率(百分率)
+scale = 50
+
+[image.trim]
+# 画像のトリミング位置と幅
+#
+# 例
+# ----------
+# RPGツクールVXACE
+# width  = 96
+# height = 96
+#
+# RPGツクールMV
+# width  = 144
+# height = 144
+x      = 100
+y      = 290
+width  = 144
+height = 144
+
+[image.paste]
+row    = 2
+column = 4
+
+[image.generate]
+# 保存するファイル名の書式
+save_filename_format = 'actor%03d.png'
+
+# 画像の組み合わせ
+# 一番上のファイルに順に重ねるように画像を貼り付けていく。
+pattern = [
+# 通常
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/normal.png'
+	],
+# 会話
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/smile.png'
+	],
+# 驚き
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/surprise.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/whisper.png'
+	],
+# 無表情
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/spin.png'
+	],
+# 喜
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/smile.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/smile.png'
+	],
+# 怒
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/angry.png',
+		'img/actor019/diff/mouse/shout.png'
+	],
+# 哀
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/normal.png',
+		'img/actor019/diff/eyebrows/sad.png',
+		'img/actor019/diff/mouse/spin.png'
+	],
+# 楽
+	[
+		'img/actor019/diff/body/base.png',
+		'img/actor019/diff/eye/smile.png',
+		'img/actor019/diff/eyebrows/normal.png',
+		'img/actor019/diff/mouse/normal.png'
 	]
 ]
