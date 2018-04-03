@@ -8,8 +8,10 @@ import (
 	"github.com/jiro4989/tkimgutil/command"
 )
 
+// GlobalFlags は公開フラグです。
 var GlobalFlags = []cli.Flag{}
 
+// Commands はCLIから選択するサブコマンドです。
 var Commands = []cli.Command{
 	{
 		Name:   "scale",
@@ -109,6 +111,7 @@ var Commands = []cli.Command{
 	},
 }
 
+// CommandNotFound は存在しないコマンドが入力された時に実行されるヘルプコマンドです。
 func CommandNotFound(c *cli.Context, command string) {
 	fmt.Fprintf(os.Stderr, "%s: '%s' is not a %s command. See '%s --help'.", c.App.Name, command, c.App.Name, c.App.Name)
 	os.Exit(2)

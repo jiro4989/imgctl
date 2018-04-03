@@ -1,3 +1,4 @@
+// tkimgutil はRPGツクール用の画像処理ユーティリティです。
 package main
 
 import (
@@ -12,7 +13,6 @@ func init() {
 }
 
 func main() {
-
 	app := cli.NewApp()
 	app.Name = Name
 	app.Version = Version
