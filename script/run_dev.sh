@@ -2,8 +2,8 @@
 
 set -eu
 
-go run main.go version.go commands.go generate |
-	go run main.go version.go commands.go scale -s 50 |
-	go run main.go version.go commands.go trim -x 100 -y 290 |
+go run ./cmd/main.go ./cmd/version.go ./cmd/commands.go generate |
+	go run ./cmd/main.go ./cmd/version.go ./cmd/commands.go scale -s 50 |
+	go run ./cmd/main.go ./cmd/version.go ./cmd/commands.go trim -x 100 -y 290 |
   sort |
-	go run main.go version.go commands.go paste
+	go run ./cmd/main.go ./cmd/version.go ./cmd/commands.go paste

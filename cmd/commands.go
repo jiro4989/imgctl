@@ -100,6 +100,11 @@ var Commands = []cli.Command{
 				Value: "dist/generate",
 				Usage: "output dist",
 			},
+			cli.StringFlag{
+				Name:  "config",
+				Value: "config/config.toml",
+				Usage: "Image pattern",
+			},
 		},
 	},
 }

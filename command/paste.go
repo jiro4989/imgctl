@@ -10,7 +10,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/jiro4989/tkimgutil/imageutil"
+	"github.com/jiro4989/tkimgutil/internal/image/io"
 )
 
 func CmdPaste(c *cli.Context) {
@@ -42,7 +42,7 @@ func CmdPaste(c *cli.Context) {
 	for sc.Scan() {
 		inFile := sc.Text()
 
-		src, err := imageutil.ReadImage(inFile)
+		src, err := io.ReadImage(inFile)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -59,7 +59,7 @@ func CmdPaste(c *cli.Context) {
 		// 画像の保存
 		if (cnt+1)%max == 0 {
 			on := fmt.Sprintf(fnFmt, fcnt)
-			if err := imageutil.WriteImage(on, dist); err != nil {
+			if err := io.WriteImage(on, dist); err != nil {
 				log.Fatal(err)
 			}
 
@@ -77,7 +77,7 @@ func CmdPaste(c *cli.Context) {
 	}
 
 	on := fmt.Sprintf(fnFmt, fcnt)
-	if err := imageutil.WriteImage(on, dist); err != nil {
+	if err := io.WriteImage(on, dist); err != nil {
 		log.Fatal(err)
 	}
 	fmt.Println(on)

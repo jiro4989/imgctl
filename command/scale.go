@@ -11,7 +11,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/disintegration/imaging"
-	"github.com/jiro4989/tkimgutil/imageutil"
+	"github.com/jiro4989/tkimgutil/internal/image/io"
 )
 
 func init() {
@@ -39,7 +39,7 @@ func CmdScale(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			src, err := imageutil.ReadImage(inFile)
+			src, err := io.ReadImage(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -47,7 +47,7 @@ func CmdScale(c *cli.Context) {
 			w := src.Bounds().Size().X * scaleSize / 100
 
 			dist := imaging.Resize(src, w, 0, imaging.Lanczos)
-			if err := imageutil.WriteImage(outFile, dist); err != nil {
+			if err := io.WriteImage(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 

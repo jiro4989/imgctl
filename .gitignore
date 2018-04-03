@@ -1,3 +1,4 @@
 /dist/
 /img/
-/res/token
+/build/token
+/test/img/

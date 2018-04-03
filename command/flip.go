@@ -12,7 +12,7 @@ import (
 
 	"github.com/codegangsta/cli"
 	"github.com/disintegration/gift"
-	"github.com/jiro4989/tkimgutil/imageutil"
+	"github.com/jiro4989/tkimgutil/internal/image/io"
 )
 
 func CmdFlip(c *cli.Context) {
@@ -34,7 +34,7 @@ func CmdFlip(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			src, err := imageutil.ReadImage(inFile)
+			src, err := io.ReadImage(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -43,7 +43,7 @@ func CmdFlip(c *cli.Context) {
 			dist := image.NewRGBA(g.Bounds(src.Bounds()))
 			g.Draw(dist, src)
 
-			if err := imageutil.WriteImage(outFile, dist); err != nil {
+			if err := io.WriteImage(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 

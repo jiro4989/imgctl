@@ -1,4 +1,4 @@
-package imageutil
+package io
 
 import (
 	"image"
