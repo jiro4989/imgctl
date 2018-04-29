@@ -12,7 +12,7 @@ import (
 	"sync"
 
 	"github.com/codegangsta/cli"
-	"github.com/jiro4989/tkimgutil/internal/image/io"
+	jimage "github.com/jiro4989/lib-go/image"
 	"github.com/oliamb/cutter"
 )
 
@@ -43,7 +43,7 @@ func CmdTrim(c *cli.Context) {
 			base := filepath.Base(inFile)
 			outFile := outDir + "/" + base
 
-			src, err := io.ReadImage(inFile)
+			src, err := jimage.ReadFile(inFile)
 			if err != nil {
 				log.Fatal(err)
 			}
@@ -61,7 +61,7 @@ func CmdTrim(c *cli.Context) {
 			dist := image.NewRGBA(image.Rectangle{pt1, pt2})
 			draw.Draw(dist, dist.Bounds(), cImg, pt1, draw.Over)
 
-			if err := io.WriteImage(outFile, dist); err != nil {
+			if err := jimage.WriteFile(outFile, dist); err != nil {
 				log.Fatal(err)
 			}
 

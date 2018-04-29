@@ -10,7 +10,7 @@ import (
 	"os"
 
 	"github.com/codegangsta/cli"
-	"github.com/jiro4989/tkimgutil/internal/image/io"
+	jimage "github.com/jiro4989/lib-go/image"
 )
 
 func CmdPaste(c *cli.Context) {
@@ -42,7 +42,7 @@ func CmdPaste(c *cli.Context) {
 	for sc.Scan() {
 		inFile := sc.Text()
 
-		src, err := io.ReadImage(inFile)
+		src, err := jimage.ReadFile(inFile)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -59,7 +59,7 @@ func CmdPaste(c *cli.Context) {
 		// 画像の保存
 		if (cnt+1)%max == 0 {
 			on := fmt.Sprintf(fnFmt, fcnt)
-			if err := io.WriteImage(on, dist); err != nil {
+			if err := jimage.WriteFile(on, dist); err != nil {
 				log.Fatal(err)
 			}
 
@@ -79,7 +79,7 @@ func CmdPaste(c *cli.Context) {
 	// 空のファイルが生成されないようにチェック
 	if 0 < cnt%row*col {
 		on := fmt.Sprintf(fnFmt, fcnt)
-		if err := io.WriteImage(on, dist); err != nil {
+		if err := jimage.WriteFile(on, dist); err != nil {
 			log.Fatal(err)
 		}
 		fmt.Println(on)

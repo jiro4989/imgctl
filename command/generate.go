@@ -11,7 +11,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/codegangsta/cli"
-	"github.com/jiro4989/tkimgutil/internal/image/io"
+	jimage "github.com/jiro4989/lib-go/image"
 )
 
 type TOML struct {
@@ -37,7 +37,7 @@ func CmdGenerate(c *cli.Context) {
 	}
 
 	// 画像の幅が必要なので先行して1枚だけload
-	src, err := io.ReadImage(cfg.Image.Pattern[0][0])
+	src, err := jimage.ReadFile(cfg.Image.Pattern[0][0])
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -58,7 +58,7 @@ func CmdGenerate(c *cli.Context) {
 			ch <- 1
 
 			for _, f := range p {
-				src, err := io.ReadImage(f)
+				src, err := jimage.ReadFile(f)
 				if err != nil {
 					log.Fatal(err)
 				}
@@ -72,7 +72,7 @@ func CmdGenerate(c *cli.Context) {
 			}
 
 			on := fmt.Sprintf(onFmt, (i + 1))
-			if err := io.WriteImage(on, dist); err != nil {
+			if err := jimage.WriteFile(on, dist); err != nil {
 				log.Fatal(err)
 			}
 			fmt.Println(on)
