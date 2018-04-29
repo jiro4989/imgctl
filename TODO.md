@@ -1,9 +1,10 @@
 - [ ] READMEの整備
 - [ ] コマンドのヘルプの説明文が適当すぎるので修正
-- [ ] windows用にfindコマンドを実装
 - [ ] config.tomlの自動生成、初期生成処理の追加
-- [ ] Makefileとscriptの整備
-- [ ] Makefileにデプロイタスクの追加
+- [ ] WindowsでSortコマンドの有無を確認
+- [x] windows用にfindコマンドを実装
+- [x] Makefileとscriptの整備
+- [x] Makefileにリリースタスクの追加
 - [x] generateのtoml指定オプション
 - [x] ドキュメンテーションコメントの記載
 - [x] プロジェクト構造を変更
