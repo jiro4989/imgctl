@@ -76,11 +76,14 @@ func CmdPaste(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	on := fmt.Sprintf(fnFmt, fcnt)
-	if err := io.WriteImage(on, dist); err != nil {
-		log.Fatal(err)
+	// 空のファイルが生成されないようにチェック
+	if 0 < cnt%row*col {
+		on := fmt.Sprintf(fnFmt, fcnt)
+		if err := io.WriteImage(on, dist); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println(on)
 	}
-	fmt.Println(on)
 }
 
 // calcPos は画像の貼り付け座標を計算して返す。
