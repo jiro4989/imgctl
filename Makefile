@@ -13,6 +13,14 @@ run-all:
 		sort | \
 		go run ${MAIN_FILES} paste
 
+.PHONY: run-find
+run-find:
+	go run ${MAIN_FILES} find -d dist/generate | sort | \
+		go run ${MAIN_FILES} scale -s 50 | \
+		go run ${MAIN_FILES} trim -x 100 -y 290 | \
+		sort | \
+		go run ${MAIN_FILES} paste
+
 .PHONY: build
 build:
 	go build .

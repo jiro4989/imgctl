@@ -109,6 +109,23 @@ var Commands = []cli.Command{
 			},
 		},
 	},
+	{
+		Name:   "find",
+		Usage:  "Find PNG files",
+		Action: command.CmdFind,
+		Flags: []cli.Flag{
+			cli.StringFlag{
+				Name:  "extension,e",
+				Value: "png",
+				Usage: "File extension",
+			},
+			cli.StringFlag{
+				Name:  "dir,d",
+				Value: "",
+				Usage: "Search dir",
+			},
+		},
+	},
 }
 
 // CommandNotFound は存在しないコマンドが入力された時に実行されるヘルプコマンドです。
