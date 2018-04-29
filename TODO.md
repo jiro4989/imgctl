@@ -1,4 +1,7 @@
 - [ ] READMEの整備
+- [ ] config.tomlの自動生成、初期生成処理の追加
+- [ ] Makefileとscriptの整備
+- [ ] Makefileにデプロイタスクの追加
 - [x] generateのtoml指定オプション
 - [x] ドキュメンテーションコメントの記載
 - [x] プロジェクト構造を変更
