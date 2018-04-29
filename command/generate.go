@@ -30,9 +30,7 @@ func CmdGenerate(c *cli.Context) {
 		log.Fatal(err)
 	}
 
-	// 出力先ディレクトリの作成
 	cfgPath := c.String("config")
-
 	var cfg TOML
 	if _, err := toml.DecodeFile(cfgPath, &cfg); err != nil {
 		log.Fatal(err)
