@@ -12,10 +12,16 @@ func init() {
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 
+var (
+	Name     string
+	Version  string
+	Revision string
+)
+
 func main() {
 	app := cli.NewApp()
 	app.Name = Name
-	app.Version = Version
+	app.Version = Version + " " + Revision
 	app.Author = "jiro4989"
 	app.Email = ""
 	app.Usage = "Utilitiy to process images for RPG Maker"
