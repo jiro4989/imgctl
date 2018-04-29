@@ -14,7 +14,8 @@ run-all:
 		go run ${MAIN_FILES} paste
 
 .PHONY: run-find
-run-find:
+run-find: clean
+	go run ${MAIN_FILES} generate
 	go run ${MAIN_FILES} find -d dist/generate | sort | \
 		go run ${MAIN_FILES} scale -s 50 | \
 		go run ${MAIN_FILES} trim -x 100 -y 290 | \
