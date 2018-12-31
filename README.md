@@ -42,6 +42,8 @@ RPGツクール用の表情タイル画像を自動生成するためのCLIツ�
 bash ./script/run.sh
 ```
 
+ガッツリ使ってる一例は[こちら](https://github.com/jiro4989/dist-illust/tree/master/script)
+
 ### Windows
 
 整備中
