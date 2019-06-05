@@ -1,7 +1,6 @@
 package crop
 
 import (
-	"bufio"
 	"image"
 	"image/draw"
 	"log"
@@ -14,7 +13,7 @@ import (
 	"github.com/oliamb/cutter"
 )
 
-func CropImages(outDir, saveFileNameFormat string, files []string, x, y, w, h int) ([]string, error) {
+func CropImages(outDir string, files []string, x, y, w, h int) ([]string, error) {
 	pt1 := image.Pt(x, y)
 	pt2 := image.Pt(x+w, y+h)
 	if err := os.MkdirAll(outDir, os.ModePerm); err != nil {
@@ -25,10 +24,8 @@ func CropImages(outDir, saveFileNameFormat string, files []string, x, y, w, h in
 	var wg sync.WaitGroup
 
 	var cropped []string
-	sc := bufio.NewScanner(os.Stdin)
-	for sc.Scan() {
+	for _, inFile := range files {
 		wg.Add(1)
-		inFile := sc.Text()
 		go func(inFile string) {
 			defer wg.Done()
 			ch <- 1
@@ -63,10 +60,6 @@ func CropImages(outDir, saveFileNameFormat string, files []string, x, y, w, h in
 	}
 
 	wg.Wait()
-
-	if err := sc.Err(); err != nil {
-		return nil, err
-	}
 
 	return cropped, nil
 }

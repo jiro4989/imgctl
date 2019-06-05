@@ -8,7 +8,7 @@ import (
 
 func TestGenerateImages(t *testing.T) {
 	const inDir = "../testdata/in"
-	const outDir = "../testdata/out"
+	const outDir = "../testdata/out/generate"
 	const format = "actor%03d.png"
 	type TestData struct {
 		desc         string
@@ -28,6 +28,14 @@ func TestGenerateImages(t *testing.T) {
 	for _, v := range tds {
 		got, err := GenerateImages(outDir, format, v.filePatterns)
 		assert.Nil(t, err, v.desc)
-		assert.Equal(t, v.expect, got, v.desc)
+		var count int
+		for _, g := range got {
+			for _, e := range v.expect {
+				if g == e {
+					count++
+				}
+			}
+		}
+		assert.Equal(t, len(v.expect), count, v.desc)
 	}
 }
