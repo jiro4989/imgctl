@@ -1,79 +1,61 @@
-NAME := tkimgutil
-REVISION := $(shell git rev-parse --short HEAD)
+APPNAME := $(shell basename `pwd`)
+VERSION := v$(shell gobump show -r)
+SRCS := $(shell find . -name "*.go" -type f )
 LDFLAGS := -ldflags="-s -w \
-	-X \"main.Name=$(NAME)\" \
-	-X \"main.Version=$(VERSION)\" \
-	-X \"main.Revision=$(REVISION)\" \
 	-extldflags \"-static\""
+XBUILD_TARGETS := \
+	-os="windows linux darwin" \
+	-arch="386 amd64" 
+DIST_DIR := dist/$(VERSION)
+README := README.*
+EXTERNAL_TOOLS := \
+	github.com/mitchellh/gox \
+	github.com/tcnksm/ghr \
+	github.com/motemen/gobump/cmd/gobump
 
-SRCS := $(shell find . -type f -name '*.go')
+help: ## ドキュメントのヘルプを表示する。
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-MAIN_FILES := main.go commands.go
+build: $(SRCS) ## ビルド
+	go build $(LDFLAGS) -o bin/$(APPNAME) .
 
-# 配布物に含めるファイル
-COPY_FILES := README.md CHANGELOG.md
+install: build ## インストール
+	go install
 
-# 配布物の出力先
-DIST_DIR   := dist/$(VERSION)
+xbuild: $(SRCS) bootstrap ## クロスコンパイル
+	gox $(LDFLAGS) $(XBUILD_TARGETS) --output "$(DIST_DIR)/{{.Dir}}_{{.OS}}_{{.Arch}}/{{.Dir}}"
 
-.PHONY: run
-run:
-	go run ${MAIN_FILES} ${ARGS}
+archive: xbuild ## クロスコンパイルしたバイナリとREADMEを圧縮する
+	find $(DIST_DIR)/ -mindepth 1 -maxdepth 1 -a -type d \
+		| while read -r d; \
+		do \
+			cp $(README) $$d/ ; \
+			cp LICENSE $$d/ ; \
+		done
+	cd $(DIST_DIR) && \
+		find . -maxdepth 1 -mindepth 1 -a -type d  \
+		| while read -r d; \
+		do \
+			tar czf $$d.tar.gz $$d; \
+		done
 
-.PHONY: run-all
-run-all:
-	go run ${MAIN_FILES} generate | \
-		go run ${MAIN_FILES} scale -s 50 | \
-		go run ${MAIN_FILES} trim -x 100 -y 290 | \
-		sort | \
-		go run ${MAIN_FILES} paste
-
-.PHONY: run-find
-run-find: clean
-	go run ${MAIN_FILES} generate
-	go run ${MAIN_FILES} find -d dist/generate | sort | \
-		go run ${MAIN_FILES} scale -s 50 | \
-		go run ${MAIN_FILES} trim -x 100 -y 290 | \
-		sort | \
-		go run ${MAIN_FILES} paste
-
-.PHONY: build
-build: ${SRCS}
-	mkdir -p bin
-	go build -a -tags netgo -installsuffix netgo $(LDFLAGS) \
-		-o bin/$(NAME) .
-
-.PHONY: install
-install: build
-	go install ${LDFLAGS}
-
-.PHONY: cross-build
-cross-build: var-check
-	-rm -rf $(DIST_DIR)
-	bash ./script/cross-build.sh $(NAME) $(VERSION) $(LDFLAGS) $(MAIN_FILES)
-
-.PHONY: archive
-archive: cross-build
-	ls -d $(DIST_DIR)/* | while read -r d; do cp $(COPY_FILES) $$d/; done
-	bash ./script/arch.sh $(DIST_DIR)
-
-.PHONY: release
-release: archive
+release: bootstrap test archive ## GitHubにリリースする
 	ghr $(VERSION) $(DIST_DIR)/
 
-.PHONY: setup
-setup:
-	go get -u github.com/golang/dep/cmd/dep
-	go get -u github.com/tcnksm/ghr
-	dep ensure
+lint: ## 静的解析をかける
+	gometalinter
 
-.PHONY: clean
-clean:
-	-rm -rf dist/generate
-	-rm -rf dist/paste
-	-rm -rf dist/scale
-	-rm -rf dist/trim
+test: ## テストコードを実行する
+	go test -cover ./...
 
-.PHONY: var-check
-var-check:
-	if [ "${VERSION}" = "" ]; then echo "VERSIONは必須です。"; exit 1; fi
+clean: ## バイナリ、配布物ディレクトリを削除する
+	-rm -rf bin
+	-rm -rf $(DIST_DIR)
+
+bootstrap: ## 外部ツールをインストールする
+	for t in $(EXTERNAL_TOOLS); do \
+		echo "Installing $$t ..." ; \
+		GO111MODULE=off go get $$t ; \
+	done
+
+.PHONY: help build install xbuild archive release lint test clean bootstrap

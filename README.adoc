@@ -1,0 +1,39 @@
+= imgctl
+:toc: left
+:sectnums:
+
+image:https://travis-ci.org/jiro4989/imgctl.svg?branch=master["Build Status", link="https://travis-ci.org/jiro4989/imgctl"]
+
+imgctlは画像を一括操作するためのコマンドです。
+
+== 開発環境
+
+ go version go1.12 linux/amd64
+
+== 使い方
+
+[source,bash]
+----
+imgctl generate
+imgctl crop
+imgctl paste
+imgctl flip
+imgctl all
+----
+
+=== all
+
+generate, crop, paste and flipを連続して実行する。
+成果物はカレントディレクトリ、あるいは設定ファイルに基づいて生成される。
+
+例えばカレントディレクトリにtextimg.configというファイルが存在したとき
+その設定ファイルを参照するようになる。オプションでも指定できる。
+
+[source,bash]
+----
+imgctl all -f config.json
+----
+
+設定ファイルの記述で、出力先ディレクトリを指定すると
+あとはそのディレクトリの配下にディレクトリを作って自動で生成する。
+

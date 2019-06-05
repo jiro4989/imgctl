@@ -1,0 +1,5 @@
+language: go
+
+script:
+  - env GO111MODULE=on go build -o align2
+  - env GO111MODULE=on go test -cover ./...

@@ -1,36 +1,20 @@
-// tkimgutil はRPGツクール用の画像処理ユーティリティです。
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
-	"github.com/codegangsta/cli"
+	"github.com/jiro4989/imgctl/subcmd"
 )
 
 func init() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	log.SetFlags(log.Ldate | log.Ltime)
 }
 
-var (
-	Name     string
-	Version  string
-	Revision string
-)
-
 func main() {
-	app := cli.NewApp()
-	app.Name = Name
-	app.Version = Version + " " + Revision
-	app.Author = "jiro4989"
-	app.Email = ""
-	app.Usage = "Utilitiy to process images for RPG Maker"
-
-	app.Flags = GlobalFlags
-	app.Commands = Commands
-	app.CommandNotFound = CommandNotFound
-
-	if err := app.Run(os.Args); err != nil {
-		log.Fatal(err)
+	if err := subcmd.RootCommand.Execute(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
+		os.Exit(-1)
 	}
 }
