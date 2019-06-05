@@ -11,34 +11,30 @@ import (
 	"github.com/jiro4989/imgctl/imageio"
 )
 
-type Config struct {
-	SaveFileNameFormat string
-	SaveDir            string
-}
-
-// WriteImage は画像を重ねて書き込む。
+// GenerateImages は画像を重ねて書き込む。
 // 画像は指定ディレクトリに連番のファイル名を生成して保存する。
-func WriteImage(filePatterns [][]string, config Config) error {
+// 戻り値として生成されたファイル名を返す。
+func GenerateImages(outDir, saveFileNameFormat string, filePatterns [][]string) ([]string, error) {
 	// 出力先ディレクトリの作成
-	outDir := config.SaveDir
 	if err := os.MkdirAll(outDir, os.ModePerm); err != nil {
-		return err
+		return nil, err
 	}
 
 	// 画像の幅が必要なので先行して1枚だけload
-	src, err := imageio.ReadFile(config.Pattern[0][0])
+	src, err := imageio.ReadFile(filePatterns[0][0])
 	if err != nil {
-		return err
+		return nil, err
 	}
 	width := src.Bounds().Size().X
 	height := src.Bounds().Size().Y
-	onFmt := outDir + "/" + config.SaveFileNameFormat
+	onFmt := outDir + "/" + saveFileNameFormat
 	src = nil
 
 	ch := make(chan int, runtime.NumCPU())
 	var wg sync.WaitGroup
 
-	for i, p := range cfg.Image.Pattern {
+	var generated []string
+	for i, p := range filePatterns {
 		wg.Add(1)
 		dist := image.NewRGBA(image.Rect(0, 0, width, height))
 
@@ -64,11 +60,13 @@ func WriteImage(filePatterns [][]string, config Config) error {
 			if err := imageio.WriteFile(on, dist); err != nil {
 				panic(err)
 			}
-			fmt.Println(on)
+			generated = append(generated, on)
 
 			<-ch
 		}(i, p)
 	}
 
 	wg.Wait()
+
+	return generated, nil
 }
