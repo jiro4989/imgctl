@@ -18,7 +18,7 @@ func CropImages(outDir, saveFileNameFormat string, files []string, x, y, w, h in
 	pt1 := image.Pt(x, y)
 	pt2 := image.Pt(x+w, y+h)
 	if err := os.MkdirAll(outDir, os.ModePerm); err != nil {
-		return nii, err
+		return nil, err
 	}
 
 	ch := make(chan int, runtime.NumCPU())

@@ -9,4 +9,5 @@ require (
 	github.com/nsf/termbox-go v0.0.0-20190325093121-288510b9734e
 	github.com/oliamb/cutter v0.2.2
 	github.com/spf13/cobra v0.0.4
+	github.com/stretchr/testify v1.2.2
 )
