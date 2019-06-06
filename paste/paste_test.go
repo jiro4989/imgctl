@@ -7,37 +7,71 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// func TestPasteImages(t *testing.T) {
-// 	const (
-// 		inDir  = "../testdata/in"
-// 		outDir = "../testdata/out/flip"
-// 	)
-// 	type TestData struct {
-// 		desc   string
-// 		files  []string
-// 		expect []string
-// 	}
-// 	tds := []TestData{
-// 		{
-// 			desc:   "png",
-// 			files:  []string{inDir + "/actor001.png", inDir + "/actor002.png"},
-// 			expect: []string{outDir + "/actor001.png", outDir + "/actor002.png"},
-// 		},
-// 	}
-// 	for _, v := range tds {
-// 		got, err := PasteImages(outDir, v.files)
-// 		assert.Nil(t, err, v.desc)
-// 		var count int
-// 		for _, g := range got {
-// 			for _, e := range v.expect {
-// 				if g == e {
-// 					count++
-// 				}
-// 			}
-// 		}
-// 		assert.Equal(t, len(v.expect), count, v.desc)
-// 	}
-// }
+func TestPasteImages(t *testing.T) {
+	const (
+		inDir  = "../testdata/in"
+		outDir = "../testdata/out/paste"
+	)
+	type TestData struct {
+		desc   string
+		files  []string
+		format string
+		expect []string
+	}
+	tds := []TestData{
+		{
+			desc: "png",
+			files: []string{
+				inDir + "/face001.png",
+				inDir + "/face002.png",
+				inDir + "/face003.png",
+				inDir + "/face004.png",
+				inDir + "/face005.png",
+				inDir + "/face006.png",
+				inDir + "/face007.png",
+				inDir + "/face008.png",
+			},
+			format: "actor%03d_1.png",
+			expect: []string{outDir + "/actor001_1.png"},
+		},
+		{
+			desc: "png",
+			files: []string{
+				inDir + "/face001.png",
+				inDir + "/face002.png",
+				inDir + "/face003.png",
+				inDir + "/face004.png",
+				inDir + "/face005.png",
+				inDir + "/face006.png",
+				inDir + "/face007.png",
+				inDir + "/face008.png",
+				inDir + "/face009.png",
+				inDir + "/face010.png",
+				inDir + "/face011.png",
+				inDir + "/face012.png",
+				inDir + "/face013.png",
+				inDir + "/face014.png",
+				inDir + "/face015.png",
+				inDir + "/face016.png",
+			},
+			format: "actor%03d_2.png",
+			expect: []string{outDir + "/actor001_2.png", outDir + "/actor002_2.png"},
+		},
+	}
+	for _, v := range tds {
+		got, err := PasteImages(outDir, v.format, v.files, 2, 4, 344, 344)
+		assert.Nil(t, err, v.desc)
+		var count int
+		for _, g := range got {
+			for _, e := range v.expect {
+				if g == e {
+					count++
+				}
+			}
+		}
+		assert.Equal(t, len(v.expect), count, v.desc)
+	}
+}
 
 func TestCalcPos(t *testing.T) {
 	type TestData struct {

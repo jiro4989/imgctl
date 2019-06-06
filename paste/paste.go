@@ -1,7 +1,6 @@
 package paste
 
 import (
-	"bufio"
 	"fmt"
 	"image"
 	"image/draw"
@@ -31,10 +30,7 @@ func PasteImages(outDir, saveFileNameFormat string, files []string, row, col, wi
 	dist := image.NewRGBA(image.Rect(0, 0, outWidth, outHeight))
 
 	var pasted []string
-	sc := bufio.NewScanner(os.Stdin)
-	for sc.Scan() {
-		inFile := sc.Text()
-
+	for _, inFile := range files {
 		src, err := imageio.ReadFile(inFile)
 		if err != nil {
 			log.Fatal(err)
@@ -63,10 +59,6 @@ func PasteImages(outDir, saveFileNameFormat string, files []string, row, col, wi
 		}
 
 		cnt++
-	}
-
-	if err := sc.Err(); err != nil {
-		log.Fatal(err)
 	}
 
 	// 空のファイルが生成されないようにチェック
