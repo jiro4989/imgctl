@@ -1,6 +1,7 @@
 {
   "generate":{
-    "outFileNameForamt":"actor%03d.png",
+    "outDir":"generate",
+    "outFileNameFormat":"actor%03d.png",
     "srcPatterns":[
       [
         "target/actor021/diff/body/normal.png",
@@ -10,16 +11,23 @@
       ]
     ]
   },
+  "flip":{
+    "outDir":"flip"
+  },
   "scale":{
+    "outDir":"scale",
     "size":100
   },
   "crop":{
+    "outDir":"crop",
     "x":0,
     "y":0,
     "width":0,
     "height":0
   },
   "paste":{
+    "outDir":"paste",
+    "outFileNameFormat":"actor%03d.png",
     "row":2,
     "col":4,
     "width":144,
