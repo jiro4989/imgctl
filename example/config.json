@@ -1,36 +1,43 @@
 {
   "generate":{
-    "outDir":"generate",
+    "outDir":"testdata/out/all/generate",
     "outFileNameFormat":"actor%03d.png",
     "srcPatterns":[
       [
-        "target/actor021/diff/body/normal.png",
-        "target/actor021/diff/eye/normal.png",
-        "target/actor021/diff/eyebrows/normal.png",
-        "target/actor021/diff/mouse/normal.png"
+        "testdata/in/body.png",
+        "testdata/in/eyebrows.png",
+        "testdata/in/eye.png",
+        "testdata/in/mouse.png"
+      ],
+      [
+        "testdata/in/body.png",
+        "testdata/in/eyebrows.png",
+        "testdata/in/eye.png",
+        "testdata/in/mouse.png",
+        "testdata/in/red.png"
       ]
     ]
   },
   "flip":{
-    "outDir":"flip"
+    "outDir":"testdata/out/all/flip"
   },
   "scale":{
-    "outDir":"scale",
+    "outDir":"testdata/out/all/scale",
     "size":100
   },
   "crop":{
-    "outDir":"crop",
-    "x":0,
-    "y":0,
-    "width":0,
-    "height":0
+    "outDir":"testdata/out/all/crop",
+    "x":32,
+    "y":420,
+    "width":344,
+    "height":344
   },
   "paste":{
-    "outDir":"paste",
+    "outDir":"testdata/out/all/paste",
     "outFileNameFormat":"actor%03d.png",
     "row":2,
     "col":4,
-    "width":144,
-    "height":144
+    "width":344,
+    "height":344
   }
 }
