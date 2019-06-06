@@ -1,4 +1,28 @@
 {
-  "src":1,
-  "dest":1
+  "generate":{
+    "outFileNameForamt":"actor%03d.png",
+    "srcPatterns":[
+      [
+        "target/actor021/diff/body/normal.png",
+        "target/actor021/diff/eye/normal.png",
+        "target/actor021/diff/eyebrows/normal.png",
+        "target/actor021/diff/mouse/normal.png"
+      ]
+    ]
+  },
+  "scale":{
+    "size":100
+  },
+  "crop":{
+    "x":0,
+    "y":0,
+    "width":0,
+    "height":0
+  },
+  "paste":{
+    "row":2,
+    "col":4,
+    "width":144,
+    "height":144
+  }
 }
