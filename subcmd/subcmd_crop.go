@@ -2,8 +2,6 @@ package subcmd
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 
 	"github.com/jiro4989/imgctl/crop"
 	"github.com/spf13/cobra"
@@ -18,8 +16,8 @@ var cropCommand = &cobra.Command{
 	Use:   "crop",
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
-		validateCropPatams(args)
-		x, y, w, h := getRect(args)
+		validateCropParams(args)
+		x, y, w, h := getRectParams(args)
 
 		f := cmd.Flags()
 
@@ -38,36 +36,15 @@ var cropCommand = &cobra.Command{
 	},
 }
 
-func validateCropPatams(args []string) {
+func validateCropParams(args []string) {
 	validate(args, "w", "h")
 }
 
-func getRect(args []string) (x, y, w, h int) {
-	var err error
-	for _, arg := range args {
-		kv := strings.Split(arg, "=")
-		switch kv[0] {
-		case "x":
-			x, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "y":
-			y, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "w":
-			w, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "h":
-			h, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		}
-	}
+func getRectParams(args []string) (x, y, w, h int) {
+	ret := getParams(args, "x", "y", "w", "h")
+	x = ret["x"]
+	y = ret["y"]
+	w = ret["w"]
+	h = ret["h"]
 	return
 }

@@ -2,8 +2,6 @@ package subcmd
 
 import (
 	"fmt"
-	"strconv"
-	"strings"
 
 	"github.com/jiro4989/imgctl/paste"
 	"github.com/spf13/cobra"
@@ -19,6 +17,9 @@ var pasteCommand = &cobra.Command{
 	Use:   "paste",
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
+		validatePasteParams(args)
+		r, c, w, h := getTileParams(args)
+
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
@@ -41,36 +42,15 @@ var pasteCommand = &cobra.Command{
 	},
 }
 
-func validatePastePatams(args []string) {
+func validatePasteParams(args []string) {
 	validate(args, "r", "c", "w", "h")
 }
 
-func getTileParams(args []string) (x, y, w, h int) {
-	var err error
-	for _, arg := range args {
-		kv := strings.Split(arg, "=")
-		switch kv[0] {
-		case "x":
-			x, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "y":
-			y, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "w":
-			w, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		case "h":
-			h, err = strconv.Atoi(kv[1])
-			if err != nil {
-				panic(err)
-			}
-		}
-	}
+func getTileParams(args []string) (r, c, w, h int) {
+	ret := getParams(args, "r", "c", "w", "h")
+	r = ret["r"]
+	c = ret["c"]
+	w = ret["w"]
+	h = ret["h"]
 	return
 }
