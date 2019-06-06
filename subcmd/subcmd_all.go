@@ -2,8 +2,10 @@ package subcmd
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 
 	"github.com/jiro4989/imgctl/all"
 	"github.com/jiro4989/imgctl/config"
@@ -19,6 +21,12 @@ var allCommand = &cobra.Command{
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
 		for _, configFile := range args {
+			_, err := os.Stat(configFile)
+			if err != nil {
+				msg := fmt.Sprintf("imgctl: file was not found. file = %v", configFile)
+				panic(errors.New(msg))
+			}
+
 			b, err := ioutil.ReadFile(configFile)
 			if err != nil {
 				panic(err)
