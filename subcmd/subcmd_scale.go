@@ -16,7 +16,9 @@ var scaleCommand = &cobra.Command{
 	Use:   "scale",
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
-		validateScaleParams(args)
+		if err := validateScaleParams(args); err != nil {
+			panic(err)
+		}
 		s := getScaleParams(args)
 		l := len(getKeyValueParams(args, "s"))
 		args = args[l:]
@@ -38,12 +40,15 @@ var scaleCommand = &cobra.Command{
 	},
 }
 
-func validateScaleParams(args []string) {
-	validate(args, "s")
+func validateScaleParams(args []string) error {
+	return validate(args, "s")
 }
 
 func getScaleParams(args []string) (s int) {
-	ret := getParams(args, "s")
+	ret, err := getParams(args, "s")
+	if err != nil {
+		panic(err)
+	}
 	s = ret["s"]
 	return
 }

@@ -1,8 +1,11 @@
 package subcmd
 
-import "strings"
+import (
+	"errors"
+	"strings"
+)
 
-func validate(args []string, prefixes ...string) {
+func validate(args []string, prefixes ...string) error {
 	for _, prefix := range prefixes {
 		var count int
 		for _, v := range args {
@@ -10,8 +13,9 @@ func validate(args []string, prefixes ...string) {
 				count++
 			}
 			if 1 < count {
-				panic("widthは1つまで")
+				return errors.New(prefix + "は1つまでしかセットできない")
 			}
 		}
 	}
+	return nil
 }

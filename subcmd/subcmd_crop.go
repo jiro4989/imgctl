@@ -16,7 +16,9 @@ var cropCommand = &cobra.Command{
 	Use:   "crop",
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
-		validateCropParams(args)
+		if err := validateCropParams(args); err != nil {
+			panic(err)
+		}
 		x, y, w, h := getRectParams(args)
 		l := len(getKeyValueParams(args, "x", "y", "w", "h"))
 		args = args[l:]
@@ -38,12 +40,15 @@ var cropCommand = &cobra.Command{
 	},
 }
 
-func validateCropParams(args []string) {
-	validate(args, "w", "h")
+func validateCropParams(args []string) error {
+	return validate(args, "w", "h")
 }
 
 func getRectParams(args []string) (x, y, w, h int) {
-	ret := getParams(args, "x", "y", "w", "h")
+	ret, err := getParams(args, "x", "y", "w", "h")
+	if err != nil {
+		panic(err)
+	}
 	x = ret["x"]
 	y = ret["y"]
 	w = ret["w"]
