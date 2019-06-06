@@ -17,6 +17,7 @@ imgctlは画像を一括操作するためのコマンドです。
 imgctl generate
 imgctl crop
 imgctl paste
+imgctl scale
 imgctl flip
 imgctl all
 ----
