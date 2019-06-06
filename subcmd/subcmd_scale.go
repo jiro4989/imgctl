@@ -3,19 +3,21 @@ package subcmd
 import (
 	"fmt"
 
-	"github.com/jiro4989/imgctl/flip"
+	"github.com/jiro4989/imgctl/scale"
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	RootCommand.AddCommand(flipCommand)
-	flipCommand.Flags().StringP("outdir", "d", "flip", "Output directory")
+	RootCommand.AddCommand(scaleCommand)
+	scaleCommand.Flags().StringP("outdir", "d", "scale", "Output directory")
 }
 
-var flipCommand = &cobra.Command{
-	Use:   "flip",
+var scaleCommand = &cobra.Command{
+	Use:   "scale",
 	Short: "",
 	Run: func(cmd *cobra.Command, args []string) {
+		validateScaleParams(args)
+		s := getScaleParams(args)
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
@@ -23,12 +25,22 @@ var flipCommand = &cobra.Command{
 			panic(err)
 		}
 
-		flipd, err := flip.FlipImages(outDir, args)
+		scaled, err := scale.ScaleImages(outDir, args, s)
 		if err != nil {
 			panic(err)
 		}
-		for _, file := range flipd {
+		for _, file := range scaled {
 			fmt.Println(file)
 		}
 	},
+}
+
+func validateScaleParams(args []string) {
+	validate(args, "s")
+}
+
+func getScaleParams(args []string) (s int) {
+	ret := getParams(args, "s")
+	s = ret["s"]
+	return
 }
