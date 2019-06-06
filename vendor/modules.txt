@@ -1,0 +1,24 @@
+# github.com/davecgh/go-spew v1.1.1
+github.com/davecgh/go-spew/spew
+# github.com/disintegration/gift v1.2.0
+github.com/disintegration/gift
+# github.com/disintegration/imaging v1.6.0
+github.com/disintegration/imaging
+# github.com/inconshreveable/mousetrap v1.0.0
+github.com/inconshreveable/mousetrap
+# github.com/jiro4989/lib-go v0.0.0-20180429141250-7ab997d8449f
+github.com/jiro4989/lib-go/image
+# github.com/oliamb/cutter v0.2.2
+github.com/oliamb/cutter
+# github.com/pmezard/go-difflib v1.0.0
+github.com/pmezard/go-difflib/difflib
+# github.com/spf13/cobra v0.0.4
+github.com/spf13/cobra
+# github.com/spf13/pflag v1.0.3
+github.com/spf13/pflag
+# github.com/stretchr/testify v1.2.2
+github.com/stretchr/testify/assert
+# golang.org/x/image v0.0.0-20180708004352-c73c2afc3b81
+golang.org/x/image/bmp
+golang.org/x/image/tiff
+golang.org/x/image/tiff/lzw
