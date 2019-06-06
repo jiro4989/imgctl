@@ -6,6 +6,7 @@ import (
 
 func init() {
 	cobra.OnInitialize()
+	RootCommand.Flags().BoolP("debug", "X", false, "Debug print")
 }
 
 var RootCommand = &cobra.Command{

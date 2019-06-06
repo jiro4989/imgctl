@@ -62,12 +62,12 @@ func PasteImages(outDir, saveFileNameFormat string, files []string, row, col, wi
 	}
 
 	// 空のファイルが生成されないようにチェック
-	if 0 < cnt%row*col {
+	if 0 < cnt%max {
 		on := fmt.Sprintf(fnFmt, fcnt)
 		if err := imageio.WriteFile(on, dist); err != nil {
 			log.Fatal(err)
 		}
-		fmt.Println(on)
+		pasted = append(pasted, on)
 	}
 
 	return pasted, nil

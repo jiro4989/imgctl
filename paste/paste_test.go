@@ -57,6 +57,14 @@ func TestPasteImages(t *testing.T) {
 			format: "actor%03d_2.png",
 			expect: []string{outDir + "/actor001_2.png", outDir + "/actor002_2.png"},
 		},
+		{
+			desc: "png",
+			files: []string{
+				inDir + "/face001.png",
+			},
+			format: "actor%03d_3.png",
+			expect: []string{outDir + "/actor001_3.png"},
+		},
 	}
 	for _, v := range tds {
 		got, err := PasteImages(outDir, v.format, v.files, 2, 4, 344, 344)
