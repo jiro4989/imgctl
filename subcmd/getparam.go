@@ -21,3 +21,15 @@ func getParams(args []string, prefixes ...string) (result map[string]int) {
 	}
 	return
 }
+
+func getKeyValueParams(args []string, prefixes ...string) (result []string) {
+	for _, arg := range args {
+		for _, prefix := range prefixes {
+			if strings.HasPrefix(arg, prefix+"=") {
+				result = append(result, arg)
+				break
+			}
+		}
+	}
+	return
+}

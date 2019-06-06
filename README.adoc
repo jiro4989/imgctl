@@ -22,6 +22,54 @@ imgctl flip
 imgctl all
 ----
 
+=== generate
+
+`:`をセパレータにファイルを指定する。
+
+[source,bash]
+----
+imgctl generate body.png:eye.png:mouse.png: body.png:eye2.png:mouse2.png
+----
+
+=== crop
+
+画像を指定の矩形で切り取って画像を保存する。
+xとyは省略できる
+
+[source,bash]
+----
+imgctl crop x=20 y=30 w=144 h=144 actor1.png actor2.png
+imgctl crop w=144 h=144 actor1.png actor2.png
+----
+
+=== flip
+
+画像を左右反転して保存する。
+
+[source,bash]
+----
+imgctl flip actor1.png actor2.png
+----
+
+=== scale
+
+画像を拡大・縮小して保存する。
+100のときは拡大率100%として保存する。
+
+[source,bash]
+----
+imgctl scale s=120 actor1.png actor2.png
+----
+
+=== paste
+
+複数の画像をタイル状に並べて配置して統合する。
+
+[source,bash]
+----
+imgctl paste r=2 c=4 w=144 h=144 actor1.png actor2.png
+----
+
 === all
 
 generate, crop, paste and flipを連続して実行する。

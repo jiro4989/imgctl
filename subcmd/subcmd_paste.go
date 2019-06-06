@@ -19,6 +19,8 @@ var pasteCommand = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		validatePasteParams(args)
 		r, c, w, h := getTileParams(args)
+		l := len(getKeyValueParams(args, "r", "c", "w", "h"))
+		args = args[l:]
 
 		f := cmd.Flags()
 

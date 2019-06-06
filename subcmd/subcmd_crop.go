@@ -18,6 +18,8 @@ var cropCommand = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		validateCropParams(args)
 		x, y, w, h := getRectParams(args)
+		l := len(getKeyValueParams(args, "x", "y", "w", "h"))
+		args = args[l:]
 
 		f := cmd.Flags()
 

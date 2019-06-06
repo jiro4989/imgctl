@@ -32,7 +32,7 @@ var generateCommand = &cobra.Command{
 
 		var patterns [][]string
 		for _, arg := range args {
-			files := strings.Split(arg, ",")
+			files := strings.Split(arg, ":")
 			patterns = append(patterns, files)
 		}
 

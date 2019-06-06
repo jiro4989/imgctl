@@ -18,6 +18,9 @@ var scaleCommand = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		validateScaleParams(args)
 		s := getScaleParams(args)
+		l := len(getKeyValueParams(args, "s"))
+		args = args[l:]
+
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
