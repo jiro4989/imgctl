@@ -12,15 +12,7 @@ imgctlは画像を一括操作するためのコマンドです。
 
 == 使い方
 
-[source,bash]
-----
-imgctl generate
-imgctl crop
-imgctl paste
-imgctl scale
-imgctl flip
-imgctl all
-----
+サブコマンドの機能について記載する。
 
 === generate
 
@@ -39,8 +31,8 @@ xとyは省略できる
 
 [source,bash]
 ----
-imgctl crop x=20 y=30 w=144 h=144 actor1.png actor2.png
-imgctl crop w=144 h=144 actor1.png actor2.png
+imgctl crop -x 20 -y 30 -W 144 -H 144 actor1.png actor2.png
+imgctl crop -W 144 -H 144 actor1.png actor2.png
 ----
 
 === flip
@@ -59,7 +51,7 @@ imgctl flip actor1.png actor2.png
 
 [source,bash]
 ----
-imgctl scale s=120 actor1.png actor2.png
+imgctl scale -s 120 actor1.png actor2.png
 ----
 
 === paste
@@ -68,7 +60,7 @@ imgctl scale s=120 actor1.png actor2.png
 
 [source,bash]
 ----
-imgctl paste r=2 c=4 w=144 h=144 actor1.png actor2.png
+imgctl paste -r 2 -c 4 -W 144 -H 144 face1.png face2.png face3.png face4.png
 ----
 
 === all
@@ -81,7 +73,7 @@ generate, crop, paste and flipを連続して実行する。
 
 [source,bash]
 ----
-imgctl all -f config.json
+imgctl all config.json
 ----
 
 設定ファイルの記述で、出力先ディレクトリを指定すると
