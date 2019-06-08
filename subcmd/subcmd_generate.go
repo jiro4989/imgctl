@@ -16,7 +16,7 @@ func init() {
 
 var generateCommand = &cobra.Command{
 	Use:   "generate",
-	Short: "",
+	Short: "Generating images from multiple image files",
 	Run: func(cmd *cobra.Command, args []string) {
 		f := cmd.Flags()
 

@@ -14,7 +14,7 @@ func init() {
 
 var scaleCommand = &cobra.Command{
 	Use:   "scale",
-	Short: "",
+	Short: "Scaling image files",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := validateScaleParams(args); err != nil {
 			panic(err)

@@ -15,7 +15,7 @@ func init() {
 
 var pasteCommand = &cobra.Command{
 	Use:   "paste",
-	Short: "",
+	Short: "Pasting image files",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := validatePasteParams(args); err != nil {
 			panic(err)

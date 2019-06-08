@@ -14,7 +14,7 @@ func init() {
 
 var flipCommand = &cobra.Command{
 	Use:   "flip",
-	Short: "",
+	Short: "Fliping image files",
 	Run: func(cmd *cobra.Command, args []string) {
 		f := cmd.Flags()
 

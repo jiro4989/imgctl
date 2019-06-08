@@ -14,7 +14,7 @@ func init() {
 
 var cropCommand = &cobra.Command{
 	Use:   "crop",
-	Short: "",
+	Short: "Croping image files",
 	Run: func(cmd *cobra.Command, args []string) {
 		if err := validateCropParams(args); err != nil {
 			panic(err)
