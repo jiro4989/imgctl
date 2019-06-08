@@ -10,22 +10,21 @@ import (
 func init() {
 	RootCommand.AddCommand(scaleCommand)
 	scaleCommand.Flags().StringP("outdir", "d", "scale", "Output directory")
+	scaleCommand.Flags().IntP("size", "s", 100, "Scale size")
 }
 
 var scaleCommand = &cobra.Command{
 	Use:   "scale",
 	Short: "Scaling image files",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := validateScaleParams(args); err != nil {
-			panic(err)
-		}
-		s := getScaleParams(args)
-		l := len(getKeyValueParams(args, "s"))
-		args = args[l:]
-
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
+		if err != nil {
+			panic(err)
+		}
+
+		s, err := f.GetInt("size")
 		if err != nil {
 			panic(err)
 		}
@@ -38,17 +37,4 @@ var scaleCommand = &cobra.Command{
 			fmt.Println(file)
 		}
 	},
-}
-
-func validateScaleParams(args []string) error {
-	return validate(args, "s")
-}
-
-func getScaleParams(args []string) (s int) {
-	ret, err := getParams(args, "s")
-	if err != nil {
-		panic(err)
-	}
-	s = ret["s"]
-	return
 }

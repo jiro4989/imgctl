@@ -11,19 +11,16 @@ func init() {
 	RootCommand.AddCommand(pasteCommand)
 	pasteCommand.Flags().StringP("outdir", "d", "paste", "Output directory")
 	pasteCommand.Flags().StringP("filename-format", "f", "%03d.png", "Out filename format")
+	pasteCommand.Flags().IntP("row", "r", 0, "Tile row")
+	pasteCommand.Flags().IntP("col", "c", 0, "Tile column")
+	pasteCommand.Flags().IntP("width", "W", 0, "Width")
+	pasteCommand.Flags().IntP("height", "H", 0, "Height")
 }
 
 var pasteCommand = &cobra.Command{
 	Use:   "paste",
 	Short: "Pasting image files",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := validatePasteParams(args); err != nil {
-			panic(err)
-		}
-		r, c, w, h := getTileParams(args)
-		l := len(getKeyValueParams(args, "r", "c", "w", "h"))
-		args = args[l:]
-
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
@@ -36,6 +33,26 @@ var pasteCommand = &cobra.Command{
 			panic(err)
 		}
 
+		var (
+			r, c, w, h int
+		)
+		r, err = f.GetInt("row")
+		if err != nil {
+			panic(err)
+		}
+		c, err = f.GetInt("col")
+		if err != nil {
+			panic(err)
+		}
+		w, err = f.GetInt("width")
+		if err != nil {
+			panic(err)
+		}
+		h, err = f.GetInt("height")
+		if err != nil {
+			panic(err)
+		}
+
 		pasted, err := paste.PasteImages(outDir, filenameFormat, args, r, c, w, h)
 		if err != nil {
 			panic(err)
@@ -44,20 +61,4 @@ var pasteCommand = &cobra.Command{
 			fmt.Println(file)
 		}
 	},
-}
-
-func validatePasteParams(args []string) error {
-	return validate(args, "r", "c", "w", "h")
-}
-
-func getTileParams(args []string) (r, c, w, h int) {
-	ret, err := getParams(args, "r", "c", "w", "h")
-	if err != nil {
-		panic(err)
-	}
-	r = ret["r"]
-	c = ret["c"]
-	w = ret["w"]
-	h = ret["h"]
-	return
 }

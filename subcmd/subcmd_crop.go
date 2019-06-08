@@ -10,24 +10,46 @@ import (
 func init() {
 	RootCommand.AddCommand(cropCommand)
 	cropCommand.Flags().StringP("outdir", "d", "crop", "Output directory")
+	cropCommand.Flags().IntP("axis-x", "x", 0, "Axis X")
+	cropCommand.Flags().IntP("axis-y", "y", 0, "Axis Y")
+	cropCommand.Flags().IntP("width", "W", 0, "Width")
+	cropCommand.Flags().IntP("height", "H", 0, "Height")
 }
 
 var cropCommand = &cobra.Command{
 	Use:   "crop",
 	Short: "Croping image files",
 	Run: func(cmd *cobra.Command, args []string) {
-		if err := validateCropParams(args); err != nil {
-			panic(err)
-		}
-		x, y, w, h := getRectParams(args)
-		l := len(getKeyValueParams(args, "x", "y", "w", "h"))
-		args = args[l:]
-
 		f := cmd.Flags()
 
 		outDir, err := f.GetString("outdir")
 		if err != nil {
 			panic(err)
+		}
+
+		var (
+			x, y, w, h int
+		)
+		x, err = f.GetInt("axis-x")
+		if err != nil {
+			panic(err)
+		}
+		y, err = f.GetInt("axis-y")
+		if err != nil {
+			panic(err)
+		}
+		w, err = f.GetInt("width")
+		if err != nil {
+			panic(err)
+		}
+		h, err = f.GetInt("height")
+		if err != nil {
+			panic(err)
+		}
+
+		if w <= 0 || h <= 0 {
+			msg := fmt.Sprintf("width or height is over 0. w = %d, h = %d", w, h)
+			panic(msg)
 		}
 
 		cropd, err := crop.CropImages(outDir, args, x, y, w, h)
@@ -38,20 +60,4 @@ var cropCommand = &cobra.Command{
 			fmt.Println(file)
 		}
 	},
-}
-
-func validateCropParams(args []string) error {
-	return validate(args, "w", "h")
-}
-
-func getRectParams(args []string) (x, y, w, h int) {
-	ret, err := getParams(args, "x", "y", "w", "h")
-	if err != nil {
-		panic(err)
-	}
-	x = ret["x"]
-	y = ret["y"]
-	w = ret["w"]
-	h = ret["h"]
-	return
 }
