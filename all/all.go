@@ -7,6 +7,7 @@ import (
 	"github.com/jiro4989/imgctl/crop"
 	"github.com/jiro4989/imgctl/flip"
 	"github.com/jiro4989/imgctl/generate"
+	"github.com/jiro4989/imgctl/imageio"
 	"github.com/jiro4989/imgctl/paste"
 	"github.com/jiro4989/imgctl/scale"
 )
@@ -71,7 +72,8 @@ func RunAll(conf config.Config) (result []string, err error) {
 		if err != nil {
 			panic(err)
 		}
-		cropedFliped, err = crop.CropImages(outDir+"/"+flipDir, scaledFliped, x, y, w, h)
+		flipedX := getFlipedX(scaledFliped, x, w)
+		cropedFliped, err = crop.CropImages(outDir+"/"+flipDir, scaledFliped, flipedX, y, w, h)
 		if err != nil {
 			panic(err)
 		}
@@ -104,4 +106,18 @@ func RunAll(conf config.Config) (result []string, err error) {
 	result = append(result, pastedFliped...)
 
 	return
+}
+
+func getFlipedX(files []string, x, w int) int {
+	if len(files) < 1 {
+		return x
+	}
+
+	file := files[0]
+	img, err := imageio.ReadFile(file)
+	if err != nil {
+		panic(err)
+	}
+	imgX := img.Bounds().Size().X
+	return imgX - x - w
 }
