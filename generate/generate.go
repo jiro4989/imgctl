@@ -32,6 +32,7 @@ func GenerateImages(outDir, saveFileNameFormat string, filePatterns [][]string) 
 
 	ch := make(chan int, runtime.NumCPU())
 	var wg sync.WaitGroup
+	var mutex = &sync.Mutex{}
 
 	var generated []string
 	for i, p := range filePatterns {
@@ -60,7 +61,9 @@ func GenerateImages(outDir, saveFileNameFormat string, filePatterns [][]string) 
 			if err := imageio.WriteFile(on, dist); err != nil {
 				panic(err)
 			}
+			mutex.Lock()
 			generated = append(generated, on)
+			mutex.Unlock()
 
 			<-ch
 		}(i, p)

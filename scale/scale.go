@@ -19,6 +19,7 @@ func ScaleImages(outDir string, files []string, scaleSize int) ([]string, error)
 
 	ch := make(chan int, runtime.NumCPU())
 	var wg sync.WaitGroup
+	var mutex = &sync.Mutex{}
 
 	var scaled []string
 	for _, inFile := range files {
@@ -41,7 +42,9 @@ func ScaleImages(outDir string, files []string, scaleSize int) ([]string, error)
 				log.Fatal(err)
 			}
 
+			mutex.Lock()
 			scaled = append(scaled, outFile)
+			mutex.Unlock()
 			<-ch
 		}(inFile)
 	}

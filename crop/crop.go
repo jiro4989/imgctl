@@ -22,6 +22,7 @@ func CropImages(outDir string, files []string, x, y, w, h int) ([]string, error)
 
 	ch := make(chan int, runtime.NumCPU())
 	var wg sync.WaitGroup
+	var mutex = &sync.Mutex{}
 
 	var cropped []string
 	for _, inFile := range files {
@@ -54,7 +55,9 @@ func CropImages(outDir string, files []string, x, y, w, h int) ([]string, error)
 				log.Fatal(err)
 			}
 
+			mutex.Lock()
 			cropped = append(cropped, outFile)
+			mutex.Unlock()
 			<-ch
 		}(inFile)
 	}

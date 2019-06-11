@@ -19,6 +19,7 @@ func FlipImages(outDir string, files []string) ([]string, error) {
 
 	ch := make(chan int, runtime.NumCPU())
 	var wg sync.WaitGroup
+	var mutex = &sync.Mutex{}
 
 	var flipped []string
 	for _, inFile := range files {
@@ -42,7 +43,9 @@ func FlipImages(outDir string, files []string) ([]string, error) {
 				log.Fatal(err)
 			}
 
+			mutex.Lock()
 			flipped = append(flipped, outFile)
+			mutex.Unlock()
 			<-ch
 		}(inFile)
 	}
