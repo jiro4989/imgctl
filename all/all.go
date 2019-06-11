@@ -12,6 +12,9 @@ import (
 )
 
 func RunAll(conf config.Config) (result []string, err error) {
+	srcDir := conf.SrcDir
+	flipDir := conf.FlipDir
+
 	var generated []string
 	{
 		var (
@@ -43,11 +46,11 @@ func RunAll(conf config.Config) (result []string, err error) {
 			s      = conf.Scale.Size
 			outDir = conf.Scale.OutDir
 		)
-		scaledSrc, err = scale.ScaleImages(outDir+"/src", generated, s)
+		scaledSrc, err = scale.ScaleImages(outDir+"/"+srcDir, generated, s)
 		if err != nil {
 			panic(err)
 		}
-		scaledFliped, err = scale.ScaleImages(outDir+"/flip", fliped, s)
+		scaledFliped, err = scale.ScaleImages(outDir+"/"+flipDir, fliped, s)
 		if err != nil {
 			panic(err)
 		}
@@ -64,11 +67,11 @@ func RunAll(conf config.Config) (result []string, err error) {
 			h      = conf.Crop.Height
 			outDir = conf.Crop.OutDir
 		)
-		cropedSrc, err = crop.CropImages(outDir+"/src", scaledSrc, x, y, w, h)
+		cropedSrc, err = crop.CropImages(outDir+"/"+srcDir, scaledSrc, x, y, w, h)
 		if err != nil {
 			panic(err)
 		}
-		cropedFliped, err = crop.CropImages(outDir+"/flip", scaledFliped, x, y, w, h)
+		cropedFliped, err = crop.CropImages(outDir+"/"+flipDir, scaledFliped, x, y, w, h)
 		if err != nil {
 			panic(err)
 		}
@@ -88,11 +91,11 @@ func RunAll(conf config.Config) (result []string, err error) {
 			outDir         = conf.Paste.OutDir
 			filenameFormat = conf.Paste.OutFileNameFormat
 		)
-		pastedSrc, err = paste.PasteImages(outDir+"/src", filenameFormat, cropedSrc, r, c, w, h)
+		pastedSrc, err = paste.PasteImages(outDir+"/"+srcDir, filenameFormat, cropedSrc, r, c, w, h)
 		if err != nil {
 			panic(err)
 		}
-		pastedFliped, err = paste.PasteImages(outDir+"/flip", filenameFormat, cropedFliped, r, c, w, h)
+		pastedFliped, err = paste.PasteImages(outDir+"/"+flipDir, filenameFormat, cropedFliped, r, c, w, h)
 		if err != nil {
 			panic(err)
 		}

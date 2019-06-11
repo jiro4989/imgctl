@@ -1,7 +1,9 @@
 package config
 
 type Config struct {
-	Crop struct {
+	SrcDir  string `json:"srcDir"`
+	FlipDir string `json:"flipDir"`
+	Crop    struct {
 		Height int    `json:"height"`
 		OutDir string `json:"outDir"`
 		Width  int    `json:"width"`

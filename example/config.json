@@ -1,4 +1,6 @@
 {
+  "srcDir":"src",
+  "flipDir":"flip",
   "generate":{
     "outDir":"testdata/out/all/generate",
     "outFileNameFormat":"actor%03d.png",
