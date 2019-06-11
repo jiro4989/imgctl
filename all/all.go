@@ -1,6 +1,8 @@
 package all
 
 import (
+	"sort"
+
 	"github.com/jiro4989/imgctl/config"
 	"github.com/jiro4989/imgctl/crop"
 	"github.com/jiro4989/imgctl/flip"
@@ -71,6 +73,8 @@ func RunAll(conf config.Config) (result []string, err error) {
 			panic(err)
 		}
 	}
+	sort.Strings(cropedSrc)
+	sort.Strings(cropedFliped)
 	result = append(result, cropedSrc...)
 	result = append(result, cropedFliped...)
 
